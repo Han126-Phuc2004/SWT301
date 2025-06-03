@@ -5,6 +5,9 @@ public class AccountService {
         if(username == null || username.isEmpty()){
             return false;
         }
+        if(!username.matches("^[a-zA-Z0-9]+$")) {
+            return false;
+        }
         if(password == null || password.length() <= 6) {
             return false;
         }

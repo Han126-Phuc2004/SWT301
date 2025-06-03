@@ -40,4 +40,14 @@ public class AccountServiceTest {
             assertEquals(false, result, "Password length <= 6 should fail registration");
         }
     }
+
+    @ParameterizedTest(name = "Special Char Username Test {index}: username={0}, password={1}, email={2}, expected={3}")
+    @CsvFileSource(resources = "/test-data.csv", numLinesToSkip = 1)
+    void testUsernameWithSpecialCharactersFromCSV(String username, String password, String email, boolean expected) {
+        if (username != null && !username.matches("^[a-zA-Z0-9]+$")) {
+            boolean result = accountService.registerAccount(username, password, email);
+            org.junit.jupiter.api.Assertions.assertEquals(expected, result,
+                "Username with special characters should NOT be allowed");
+        }
+    }
 }
