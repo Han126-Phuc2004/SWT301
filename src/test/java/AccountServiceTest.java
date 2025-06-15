@@ -1,9 +1,12 @@
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 import phuctv.AccountService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AccountServiceTest {
     private AccountService accountService;
@@ -22,7 +25,7 @@ public class AccountServiceTest {
                         username, password, email, expected));
     }
 
-    @ParameterizedTest(name = "Email Validation Test {index}: email={0}, expected={1}")
+    @ParameterizedTest(name = "Email Validation Test {index}: email={2}, expected={3}")
     @CsvFileSource(resources = "/test-data.csv", numLinesToSkip = 1)
     void testIsValidEmail(String username, String password, String email, boolean expected) {
         boolean result = accountService.isValidEmail(email);
@@ -31,7 +34,7 @@ public class AccountServiceTest {
                 String.format("Email validation for %s should be %s", email, isEmailExpected));
     }
 
-    @ParameterizedTest(name = "Password Length Test {index}: password={0}, expected={1}")
+    @ParameterizedTest(name = "Password Length Test {index}: password={1}, expected={3}")
     @CsvFileSource(resources = "/test-data.csv", numLinesToSkip = 1)
     void testPasswordLength(String username, String password, String email, boolean expected) {
         boolean isPasswordValid = password != null && password.length() > 6;
@@ -49,5 +52,9 @@ public class AccountServiceTest {
             org.junit.jupiter.api.Assertions.assertEquals(expected, result,
                 "Username with special characters should NOT be allowed");
         }
+    }
+    @Test
+    void testPasswordLength(){
+        assertTrue(accountService.passwordLength("pass123"));
     }
 }
