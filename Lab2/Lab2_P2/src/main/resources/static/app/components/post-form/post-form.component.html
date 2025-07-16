@@ -1,0 +1,150 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Đăng bài tuyển dụng mới</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+            <!-- Tiêu đề -->
+            <div class="mb-3">
+              <label for="title" class="form-label">Tiêu đề bài đăng *</label>
+              <input type="text" class="form-control" id="title" formControlName="title"
+                     [ngClass]="{'is-invalid': postForm.get('title')?.invalid && postForm.get('title')?.touched}">
+              <div class="invalid-feedback" *ngIf="postForm.get('title')?.errors?.['required']">
+                Vui lòng nhập tiêu đề
+              </div>
+              <div class="invalid-feedback" *ngIf="postForm.get('title')?.errors?.['minlength']">
+                Tiêu đề phải có ít nhất 10 ký tự
+              </div>
+            </div>
+
+            <!-- Danh mục công việc -->
+            <div class="mb-3">
+              <label for="jcID" class="form-label">Danh mục công việc *</label>
+              <select class="form-select" id="jcID" formControlName="jcID"
+                      [ngClass]="{'is-invalid': postForm.get('jcID')?.invalid && postForm.get('jcID')?.touched}">
+                <option value="">Chọn danh mục</option>
+                <option *ngFor="let category of jobCategories" [value]="category.jcID">
+                  {{category.jcName}}
+                </option>
+              </select>
+              <div class="invalid-feedback">
+                Vui lòng chọn danh mục công việc
+              </div>
+            </div>
+
+            <!-- Tên công ty -->
+            <div class="mb-3">
+              <label for="company" class="form-label">Tên công ty *</label>
+              <input type="text" class="form-control" id="company" formControlName="company"
+                     [ngClass]="{'is-invalid': postForm.get('company')?.invalid && postForm.get('company')?.touched}">
+              <div class="invalid-feedback">
+                Vui lòng nhập tên công ty
+              </div>
+            </div>
+
+            <!-- Mô tả -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Mô tả công việc *</label>
+              <textarea class="form-control" id="description" rows="4" formControlName="description"
+                        [ngClass]="{'is-invalid': postForm.get('description')?.invalid && postForm.get('description')?.touched}"></textarea>
+              <div class="invalid-feedback" *ngIf="postForm.get('description')?.errors?.['required']">
+                Vui lòng nhập mô tả công việc
+              </div>
+              <div class="invalid-feedback" *ngIf="postForm.get('description')?.errors?.['minlength']">
+                Mô tả phải có ít nhất 50 ký tự
+              </div>
+            </div>
+
+            <!-- Yêu cầu -->
+            <div class="mb-3">
+              <label for="requirement" class="form-label">Yêu cầu công việc *</label>
+              <textarea class="form-control" id="requirement" rows="4" formControlName="requirement"
+                        [ngClass]="{'is-invalid': postForm.get('requirement')?.invalid && postForm.get('requirement')?.touched}"></textarea>
+              <div class="invalid-feedback" *ngIf="postForm.get('requirement')?.errors?.['required']">
+                Vui lòng nhập yêu cầu công việc
+              </div>
+              <div class="invalid-feedback" *ngIf="postForm.get('requirement')?.errors?.['minlength']">
+                Yêu cầu phải có ít nhất 50 ký tự
+              </div>
+            </div>
+
+            <!-- Địa điểm -->
+            <div class="mb-3">
+              <label for="location" class="form-label">Địa điểm làm việc *</label>
+              <input type="text" class="form-control" id="location" formControlName="location"
+                     [ngClass]="{'is-invalid': postForm.get('location')?.invalid && postForm.get('location')?.touched}">
+              <div class="invalid-feedback">
+                Vui lòng nhập địa điểm làm việc
+              </div>
+            </div>
+
+            <!-- Mức lương -->
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="salaryMin" class="form-label">Lương tối thiểu *</label>
+                <input type="number" class="form-control" id="salaryMin" formControlName="salaryMin"
+                       [ngClass]="{'is-invalid': postForm.get('salaryMin')?.invalid && postForm.get('salaryMin')?.touched}">
+                <div class="invalid-feedback">
+                  Vui lòng nhập mức lương tối thiểu
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="salaryMax" class="form-label">Lương tối đa</label>
+                <input type="number" class="form-control" id="salaryMax" formControlName="salaryMax">
+              </div>
+              <div class="col-md-4">
+                <label for="salaryCurrency" class="form-label">Đơn vị tiền tệ *</label>
+                <select class="form-select" id="salaryCurrency" formControlName="salaryCurrency">
+                  <option value="VND">VND</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Thời gian làm việc -->
+            <div class="mb-3">
+              <label for="workingTime" class="form-label">Thời gian làm việc *</label>
+              <select class="form-select" id="workingTime" formControlName="workingTime"
+                      [ngClass]="{'is-invalid': postForm.get('workingTime')?.invalid && postForm.get('workingTime')?.touched}">
+                <option value="">Chọn thời gian làm việc</option>
+                <option value="Full-time">Toàn thời gian</option>
+                <option value="Part-time">Bán thời gian</option>
+                <option value="Contract">Hợp đồng</option>
+                <option value="Internship">Thực tập</option>
+              </select>
+              <div class="invalid-feedback">
+                Vui lòng chọn thời gian làm việc
+              </div>
+            </div>
+
+            <!-- Loại công việc -->
+            <div class="mb-3">
+              <label for="jobType" class="form-label">Loại công việc *</label>
+              <select class="form-select" id="jobType" formControlName="jobType"
+                      [ngClass]="{'is-invalid': postForm.get('jobType')?.invalid && postForm.get('jobType')?.touched}">
+                <option value="">Chọn loại công việc</option>
+                <option value="On-site">Làm việc tại văn phòng</option>
+                <option value="Remote">Làm việc từ xa</option>
+                <option value="Hybrid">Kết hợp</option>
+              </select>
+              <div class="invalid-feedback">
+                Vui lòng chọn loại công việc
+              </div>
+            </div>
+
+            <!-- Nút submit -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                {{isSubmitting ? 'Đang đăng bài...' : 'Đăng bài'}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
