@@ -1,0 +1,4 @@
+firstName,lastName,email,gender,mobile,birthDate,subject,hobbies,address,state,city,expectedMessage
+Nguyen,Van A,vana@example.com,Male,0912345678,22 Jul 1995,Maths,Sports,123 Nguyen Van Cu Hanoi,NCR,Delhi,Thanks for submitting the form
+John,Doe,invalid-email,Male,1234567890,15 Aug 1990,English,Sports,456 New Street,NCR,Delhi,Form submission failed
+Mary,Jane,mary@test.com,Female,invalid-mobile,10 Jun 1985,Chemistry,Reading,789 Old Road,NCR,Delhi,Form submission failed
